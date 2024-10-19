@@ -3,27 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мое мини-приложение в Telegram</title>
-    <script>
-        // Когда Telegram загрузит приложение, отправим сигнал готовности
-        window.Telegram.WebApp.ready();
+    <title>Меню на день</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-        // Получение информации о пользователе (например, имя)
-        const user = window.Telegram.WebApp.initDataUnsafe.user;
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('userGreeting').textContent = `Привет, ${user.first_name}!`;
-        });
-    </script>
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 80%;
+        }
+
+        .menu button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #0088cc;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu button:hover {
+            background-color: #005f99;
+        }
+
+        .menu button:active {
+            background-color: #004080;
+        }
+    </style>
 </head>
 <body>
-    <h1 id="userGreeting">Привет, пользователь!</h1>
-    <button id="closeApp">Закрыть приложение</button>
 
-    <script>
-        // Закрытие приложения при нажатии на кнопку
-        document.getElementById('closeApp').addEventListener('click', () => {
-            Telegram.WebApp.close();
-        });
-    </script>
+    <h1>Выберите прием пищи</h1>
+
+    <div class="menu">
+        <button onclick="alert('Завтрак выбран')">Завтрак</button>
+        <button onclick="alert('Обед выбран')">Обед</button>
+        <button onclick="alert('Ужин выбран')">Ужин</button>
+    </div>
+
 </body>
 </html>
+
