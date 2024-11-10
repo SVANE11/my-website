@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта Яндекс</title>
+    <title>Карта с определением местоположения</title>
     <style>
         #map {
             width: 100%;
@@ -14,17 +14,45 @@
 <body>
     <div id="map"></div>
 
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=1e4dd542-96ac-4d72-868c-6af678c8e88f&lang=ru_RU"></script>
+    <!-- Подключение Яндекс Карт API с вашим ключом -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=4cd569f0-83ba-4117-8f80-6ed73aaa6260&lang=ru_RU"></script>
     <script>
         ymaps.ready(init);
+
         function init() {
-            // Создаем карту, центрируем на Москве, если геолокация недоступна
+            // Создание карты с временным центром
             const map = new ymaps.Map("map", {
-                center: [55.751244, 37.618423], // Координаты центра карты
-                zoom: 10
+                center: [55.751244, 37.618423], // Москва (временный центр)
+                zoom: 12
             });
+
+            // Определение текущего местоположения пользователя
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const userLocation = [position.coords.latitude, position.coords.longitude];
+                        
+                        // Обновляем центр карты на текущее местоположение
+                        map.setCenter(userLocation);
+
+                        // Добавляем маркер в месте текущего местоположения
+                        const userPlacemark = new ymaps.Placemark(userLocation, {
+                            balloonContent: 'Вы здесь'
+                        }, {
+                            preset: 'islands#blueCircleDotIcon'
+                        });
+                        map.geoObjects.add(userPlacemark);
+                    },
+                    function() {
+                        alert("Не удалось определить местоположение.");
+                    }
+                );
+            } else {
+                alert("Геолокация не поддерживается вашим браузером.");
+            }
         }
     </script>
 </body>
 </html>
+
 
