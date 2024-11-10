@@ -20,22 +20,20 @@
         ymaps.ready(init);
 
         function init() {
-            // Создание карты с временным центром
             const map = new ymaps.Map("map", {
                 center: [55.751244, 37.618423], // Москва (временный центр)
                 zoom: 12
             });
 
-            // Определение текущего местоположения пользователя
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
                         const userLocation = [position.coords.latitude, position.coords.longitude];
                         
-                        // Обновляем центр карты на текущее местоположение
+                        // Центрируем карту на текущем местоположении пользователя
                         map.setCenter(userLocation);
 
-                        // Добавляем маркер в месте текущего местоположения
+                        // Добавляем маркер с текстом "Вы здесь"
                         const userPlacemark = new ymaps.Placemark(userLocation, {
                             balloonContent: 'Вы здесь'
                         }, {
@@ -43,8 +41,15 @@
                         });
                         map.geoObjects.add(userPlacemark);
                     },
-                    function() {
-                        alert("Не удалось определить местоположение.");
+                    function(error) {
+                        // Логирование ошибки для диагностики
+                        console.error("Ошибка определения местоположения:", error);
+                        alert(`Не удалось определить местоположение. Ошибка: ${error.message}`);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
                     }
                 );
             } else {
@@ -54,5 +59,3 @@
     </script>
 </body>
 </html>
-
-
