@@ -40,6 +40,9 @@
                             preset: 'islands#blueCircleDotIcon'
                         });
                         map.geoObjects.add(userPlacemark);
+
+                        // Поиск кафе и ресторанов рядом с текущим местоположением
+                        searchNearby(userLocation);
                     },
                     function(error) {
                         // Логирование ошибки для диагностики
@@ -55,6 +58,38 @@
             } else {
                 alert("Геолокация не поддерживается вашим браузером.");
             }
+        }
+
+        // Функция для поиска кафе и ресторанов рядом с пользователем
+        function searchNearby(location) {
+            const query = "кафе, ресторан"; // Запрос на поиск кафе и ресторанов
+            const radius = 1000; // Радиус поиска в метрах (1000 м = 1 км)
+
+            // Создаём запрос на поиск объектов по заданным координатам и радиусу
+            ymaps.geocode(location, {
+                kind: 'locality',
+                results: 10
+            }).then(function(res) {
+                const geoObjects = res.geoObjects;
+
+                // Ищем объекты (рестораны/кафе) в радиусе
+                ymaps.geocode(location, {
+                    kind: 'business',
+                    results: 10
+                }).then(function(result) {
+                    const businesses = result.geoObjects;
+
+                    businesses.each(function(object) {
+                        const placemark = new ymaps.Placemark(object.geometry.getCoordinates(), {
+                            balloonContent: object.properties.get('name') // Название заведения
+                        }, {
+                            preset: 'islands#redDotIcon'
+                        });
+
+                        map.geoObjects.add(placemark);
+                    });
+                });
+            });
         }
     </script>
 </body>
