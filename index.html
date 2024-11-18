@@ -5,33 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <style>
+        /* Общий стиль */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif; /* Современный шрифт */
+            font-weight: bold;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Центрирование по вертикали */
-            align-items: center; /* Центрирование по горизонтали */
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #000428, #004e92); /* Черно-синий градиент */
+            color: #fff; /* Белый текст */
         }
 
-        .content {
+        /* Стиль текста */
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-            font-size: 24px;
-            color: #333;
+            justify-content: space-between;
+            width: 300px; /* Установите ширину контейнера */
+            margin-bottom: 20px; /* Отступ между строками */
         }
 
+        .icon-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .icon-button img {
+            width: 16px;
+            height: 16px;
+            filter: invert(1); /* Делает изображение белым */
+        }
+
+        .dropdown {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9); /* Прозрачный белый фон */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .dropdown button {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #004e92; /* Синий фон */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .dropdown button:hover {
+            background-color: #0066cc;
+        }
+
+        /* Навигационная панель */
         .nav-bar {
             display: flex;
             justify-content: space-around;
-            background-color: #fff;
+            background: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный */
             padding: 15px 0;
-            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.5);
             width: 100%;
             position: absolute;
             bottom: 0;
@@ -44,7 +94,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background-color: #0088cc;
+            background-color: #004e92;
             color: white;
             font-size: 12px;
             text-align: center;
@@ -59,50 +109,8 @@
         }
 
         .nav-bar a:hover {
-            background-color: #005f99;
+            background-color: #0066cc;
         }
-
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 150px; /* Установите ширину контейнера для выравнивания */
-            margin: 0px 0; /* Отступ между строками */
-        }
-
-        .icon-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .dropdown {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 5px;
-            z-index: 1;
-        }
-
-        .dropdown button {
-            margin: 5px 0;
-            padding: 10px;
-            background-color: #0088cc;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown button:hover {
-            background-color: #005f99;
-        }
-
     </style>
 </head>
 <body>
@@ -110,39 +118,39 @@
     <div class="container">
         <p>Моя геопозиция:</p>
         <button class="icon-button" onclick="toggleDropdown('dropdown1')">
-            <img src="https://pngimg.com/uploads/triangle/triangle_PNG91.png" alt="Иконка" width="12" height="12">
+            <img src="https://pngimg.com/uploads/triangle/triangle_PNG91.png" alt="Иконка">
         </button>
-        <div id="dropdown1" class="dropdown" style="transform: translate(200px, 10px);" >
-          	<button>Ввести вручную</button>
-        	<button>Выбрать на карте</button>
+        <div id="dropdown1" class="dropdown">
+            <button>Ввести вручную</button>
+            <button>Выбрать на карте</button>
         </div>
     </div>
 
     <div class="container">
         <p>Приём пищи:</p>
         <button class="icon-button" onclick="toggleDropdown('dropdown2')">
-            <img src="https://pngimg.com/uploads/triangle/triangle_PNG91.png" alt="Иконка" width="12" height="12">
+            <img src="https://pngimg.com/uploads/triangle/triangle_PNG91.png" alt="Иконка">
         </button>
-        <div id="dropdown2" class="dropdown" style="transform: translate(200px, 10px);">
-          	<button>Завтрак</button>
-        	<button>Обед</button>
-        	<button>Ужин</button>
-        	<button>Перекус</button>
+        <div id="dropdown2" class="dropdown">
+            <button>Завтрак</button>
+            <button>Обед</button>
+            <button>Ужин</button>
+            <button>Перекус</button>
         </div>
     </div>
 
     <div class="container">
         <p>Мой бюджет:</p>
         <button class="icon-button" onclick="toggleDropdown('dropdown3')">
-            <img src="https://pngimg.com/uploads/triangle/triangle_PNG91.png" alt="Иконка" width="12" height="12">
+            <img src="https://pngimg.com/uploads/triangle/triangle_PNG91.png" alt="Иконка">
         </button>
-        <div id="dropdown3" class="dropdown" style="transform: translate(200px, 10px);">
+        <div id="dropdown3" class="dropdown">
             <button>Введите сумму...</button>
         </div>
     </div>
 
     <div class="nav-bar">
-        <a href="index.html" class="active">Home Page</a>
+        <a href="index.html" class="active">Home</a>
         <a href="maps.html">Maps</a>
         <a href="search.html">Search</a>
         <a href="profile.html">Profile</a>
